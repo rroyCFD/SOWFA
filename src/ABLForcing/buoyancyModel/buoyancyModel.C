@@ -55,6 +55,25 @@ void Foam::buoyancyModel::updateBuoyancyTerm()
     }
 }
 
+void Foam::buoyancyModel::updateBuoyancyTermVol()
+{
+    // Compute the buoyancy term, depending on the definition of
+    // the background pressure
+
+    if (backgroundPressureType_ == "noSplit")
+    {
+        buoyancyTermVol_ = (g_ * rhok_);
+    }
+    else if (backgroundPressureType_ == "rho0Split")
+    {
+        buoyancyTermVol_ = (g_ * (rhok_ - 1.0));
+    }
+    else if (backgroundPressureType_ == "rhokSplit")
+    {
+        buoyancyTermVol_ = -(gh_* fvc::grad(rhok_));
+    }
+}
+
 void Foam::buoyancyModel::updateBackgroundPressure()
 {
     if (backgroundPressureType_ == "noSplit")
@@ -111,7 +130,7 @@ Foam::buoyancyModel::buoyancyModel
     ),
 
     // Initialize the gravitational acceleration field
-  //g_(T.db().lookupObject<uniformDimensionedVectorField>("g")),
+    //g_(T.db().lookupObject<uniformDimensionedVectorField>("g")),
 
     // Initialize the Boussinesq density field
     rhok_
@@ -132,8 +151,9 @@ Foam::buoyancyModel::buoyancyModel
     // Initialize background pressure
     pBackground_("pBackground", rhok_*gh_),
 
-    // Initialize the buoyancy term
-    buoyancyTerm_("buoyancyTerm", -ghf_ * fvc::snGrad(rhok_))
+    // Initialize the buoyancy term (assuming rhokSplit)
+    buoyancyTerm_("buoyancyTerm", -ghf_ * fvc::snGrad(rhok_)),
+    buoyancyTermVol_("buoyancyTermVol", -gh_ * fvc::grad(rhok_))
 
 
 {

@@ -82,6 +82,7 @@ class buoyancyModel
 
         //- Buoyancy term
         surfaceScalarField buoyancyTerm_;
+        volVectorField buoyancyTermVol_;
 
         //- Definition of the background hydrostatic pressure
         word backgroundPressureType_;
@@ -110,6 +111,7 @@ public:
 
         //- Update buoyancy term
         void updateBuoyancyTerm();
+        void updateBuoyancyTermVol();
 
         //- Update background pressure
         void updateBackgroundPressure();
@@ -129,7 +131,10 @@ public:
             return buoyancyTerm_;
         }
 
-
+        volVectorField& buoyancyTermVol()
+        {
+            return buoyancyTermVol_;
+        }
 };
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
