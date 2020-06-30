@@ -87,7 +87,7 @@ protected:
 
         word TName_;
 
-        word kappatName_;
+        // word kappatName_;
 
         const volScalarField& T_;
 

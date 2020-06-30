@@ -85,7 +85,7 @@ LESeddyViscosityABL<BasicTurbulenceModel>::LESeddyViscosityABL
 
     TName_("T"),
 
-    kappatName_("kappat"),
+    // kappatName_("kappat"),
 
     T_(U.db().lookupObject<volScalarField>(TName_)),
 
@@ -123,7 +123,7 @@ LESeddyViscosityABL<BasicTurbulenceModel>::LESeddyViscosityABL
     )
 {
     this->coeffDict_.readIfPresent("TName", TName_);
-    this->coeffDict_.readIfPresent("kappatName", kappatName_);
+    // this->coeffDict_.readIfPresent("kappatName", kappatName_);
 }
 
 

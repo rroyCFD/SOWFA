@@ -271,10 +271,12 @@ void kEqnABL<BasicTurbulenceModel>::correct()
     // Compute the eddy viscosity.
     correctNut();
 
-    // Update the subgrid-scale thermal diffusivity
-    volScalarField& kappat_ = const_cast<volScalarField&>(U().db().lookupObject<volScalarField>(this->kappatName_));
-    kappat_ = nut/Prt;
-    kappat_.correctBoundaryConditions();
+    // saving kappat, which is just the nut field divided by the constant parameter Prt, is redundant!
+
+    // // Update the subgrid-scale thermal diffusivity
+    // volScalarField& kappat_ = const_cast<volScalarField&>(U().db().lookupObject<volScalarField>(this->kappatName_));
+    // kappat_ = nut/Prt;
+    // kappat_.correctBoundaryConditions();
 }
 
 
