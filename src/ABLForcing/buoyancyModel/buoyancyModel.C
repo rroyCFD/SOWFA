@@ -192,7 +192,8 @@ Foam::buoyancyModel::buoyancyModel
     }
     Info << "Defining background hydrostatic pressure to be " << backgroundOutput << endl;
 
-
+    // update background pressure depending on the pressure split type
+    this->updateBackgroundPressure();
 }
 
 
